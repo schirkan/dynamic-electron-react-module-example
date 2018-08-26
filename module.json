@@ -1,0 +1,10 @@
+{
+    "web": {
+        "file": "./dist/bundle.browser.js",
+        "export": ["HelloWorld"]
+    },
+    "server": {
+        "file": "./dist/bundle.server.js",
+        "export": ["HelloService"]
+    }
+}
