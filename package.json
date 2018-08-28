@@ -1,5 +1,5 @@
 {
-    "name": "electron-react-external-module-example",
+    "name": "dynamic-electron-react-module-example",
     "version": "0.0.1",
     "author": {
         "name": "Martin Pietschmann",
@@ -8,7 +8,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/schirkan/electron-react-external-module-example"
+        "url": "https://github.com/schirkan/dynamic-electron-react-module-example"
     },
     "browser": "dist/bundle.browser.js",
     "main": "dist/bundle.server.js",
