@@ -31,6 +31,7 @@ export default {
         'react-dom',
         '@fortawesome/fontawesome-svg-core',
         '@fortawesome/free-solid-svg-icons',
-        '@fortawesome/react-fontawesome'
+        '@fortawesome/react-fontawesome',
+        'electron'
     ]
 };

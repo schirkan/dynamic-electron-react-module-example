@@ -19,6 +19,6 @@ export default {
         commonjs()
     ],
     external: [
-        // signalio electron
+        'electron'
     ]
 };
