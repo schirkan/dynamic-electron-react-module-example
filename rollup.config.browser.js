@@ -5,19 +5,12 @@ import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript';
 
-var packageJson = require('./package.json');
-
 export default {
     input: './src/web/index.ts',
     output: [{
         file: './dist/bundle.browser.js',
-        format: 'umd',
-        name: packageJson.name, // take name from package.json
-        sourcemap: true,
-        globals: {
-            'react': 'React',
-            'react-dom': 'ReactDOM'
-        }
+        format: 'cjs',
+        sourcemap: true
     }],
     plugins: [
         typescript(),
