@@ -6,7 +6,7 @@ import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript';
 
 export default {
-    input: './src/web/index.ts',
+    input: './src/browser/index.ts',
     output: [{
         file: './dist/bundle.browser.js',
         format: 'cjs',

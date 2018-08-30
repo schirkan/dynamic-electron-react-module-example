@@ -1,11 +1,10 @@
 import { IHelloService } from "../../common/interfaces/IHelloService";
 
 export class HelloService implements IHelloService {
-    public start(): void {
+    public async start(serviceLoader: any): Promise<void> {
         console.log('HelloService.start()');
     }
-
-    public stop(): void {
+    public async stop(): Promise<void> {
         console.log('HelloService.stop()');
     }
 
