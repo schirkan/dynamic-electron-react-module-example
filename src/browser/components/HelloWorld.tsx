@@ -6,10 +6,15 @@ import { IHelloService } from '../../common/interfaces/IHelloService';
 
 interface IHelloWorldProps {
   backendService: any;
-  options: { text: string }
+  options: { initialText: string }
+}
+interface IHelloWorldState {
+  text: string;
+  helloService?: any;
+  error?: any;
 }
 
-export class HelloWorld extends React.Component<IHelloWorldProps> {
+export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldState> {
   public static definition: {
     name: 'HelloWorld';
     displayName: 'Hello World Component';
@@ -24,24 +29,39 @@ export class HelloWorld extends React.Component<IHelloWorldProps> {
 
   constructor(props: IHelloWorldProps) {
     super(props);
+    this.state = { text: props.options.initialText };
+
     this.onButtonClick = this.onButtonClick.bind(this);
+  }
+
+  public componentDidMount() {
+    this.props.backendService.getService('HelloService')
+      .then((helloService: IHelloService) => this.setState({ helloService }))
+      .catch((error: any) => this.setState({ error }));
   }
 
   public onButtonClick() {
     try {
-      const helloService = this.props.backendService.serviceManager.get('HelloService', 'dynamic-electron-react-module-example') as IHelloService;
-      this.setState({ text: helloService.sayHello('Martin') });
+      this.setState({ text: this.state.helloService.sayHello('Martin') });
     } catch (error) {
-      console.log(error);
+      this.setState({ text: error });
     }
   }
 
   public render() {
+    if (this.state.error) {
+      return <div className="error">Error: {this.state.error}</div>;
+    }
+
+    if (!this.state.helloService) {
+      return <div className="loading">Loading HelloService</div>;
+    }
+
     return (
       <section className="HelloWorld">
         <div>
           <FontAwesome.FontAwesomeIcon icon={SvgIcons.faThumbsUp} size="2x" />
-          {this.props.options.text}!
+          {this.state.text}
         </div>
         <button onClick={this.onButtonClick}>Say Hello from Server</button>
       </section>

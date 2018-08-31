@@ -1,32 +1,5 @@
 'use strict';
 
-function __$$styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var SvgIcons = require('@fortawesome/free-solid-svg-icons');
@@ -43,17 +16,40 @@ var HelloWorld = function (_super) {
     __extends(HelloWorld, _super);
     function HelloWorld(props) {
         _super.call(this, props);
+        this.state = { text: props.options.initialText };
         this.onButtonClick = this.onButtonClick.bind(this);
     }
+    HelloWorld.prototype.componentDidMount = function () {
+        var _this = this;
+        this.props.backendService.getService('HelloService').then(function (helloService) {
+            return _this.setState({ helloService: helloService });
+        }).catch(function (error) {
+            return _this.setState({ error: error });
+        });
+    };
     HelloWorld.prototype.onButtonClick = function () {
         try {
-            var helloService = this.props.backendService.serviceManager.get('HelloService', 'dynamic-electron-react-module-example');
-            this.setState({ text: helloService.sayHello('Martin') });
+            this.setState({ text: this.state.helloService.sayHello('Martin') });
         } catch (error) {
-            console.log(error);
+            this.setState({ text: error });
         }
     };
     HelloWorld.prototype.render = function () {
+        if (this.state.error) {
+            return React.createElement(
+                'div',
+                { className: 'error' },
+                'Error: ',
+                this.state.error
+            );
+        }
+        if (!this.state.helloService) {
+            return React.createElement(
+                'div',
+                { className: 'loading' },
+                'Loading HelloService'
+            );
+        }
         return React.createElement(
             'section',
             { className: 'HelloWorld' },
@@ -61,8 +57,7 @@ var HelloWorld = function (_super) {
                 'div',
                 null,
                 React.createElement(FontAwesome.FontAwesomeIcon, { icon: SvgIcons.faThumbsUp, size: '2x' }),
-                this.props.options.text,
-                '!'
+                this.state.text
             ),
             React.createElement(
                 'button',
