@@ -1,11 +1,23 @@
 {
     "presets": [
-        ["es2015", { "modules": false }],
+        [
+            "es2015",
+            {
+                "modules": false
+            }
+        ],
         "react"
     ],
     "plugins": [
         "transform-class-properties",
         "transform-object-rest-spread",
-        "external-helpers"
+        "external-helpers",
+        [
+            "transform-runtime",
+            {
+                "polyfill": false,
+                "regenerator": true
+            }
+        ]
     ]
 }

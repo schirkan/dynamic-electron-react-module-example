@@ -12,6 +12,7 @@ interface IHelloWorldState {
   text: string;
   helloService?: any;
   error?: any;
+  inputValue: string;
 }
 
 export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldState> {
@@ -29,9 +30,13 @@ export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldSta
 
   constructor(props: IHelloWorldProps) {
     super(props);
-    this.state = { text: props.options.initialText };
+    this.state = {
+      inputValue: 'Service',
+      text: props.options.initialText
+    };
 
     this.onButtonClick = this.onButtonClick.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   public componentDidMount() {
@@ -42,11 +47,15 @@ export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldSta
 
   public onButtonClick() {
     try {
-      this.setState({ text: this.state.helloService.sayHello('Martin') });
+      this.setState({ text: this.state.helloService.sayHello(this.state.inputValue) });
     } catch (error) {
       this.setState({ text: error });
     }
   }
+
+  public onChange(e: React.FormEvent<HTMLInputElement>){
+    this.setState({ inputValue: e.currentTarget.value });
+  } 
 
   public render() {
     if (this.state.error) {
@@ -60,10 +69,11 @@ export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldSta
     return (
       <section className="HelloWorld">
         <div>
-          <FontAwesome.FontAwesomeIcon icon={SvgIcons.faThumbsUp} size="2x" />
-          {this.state.text}
+          <FontAwesome.FontAwesomeIcon icon={SvgIcons.faThumbsUp} />
+          <span>{this.state.text}</span>
         </div>
-        <button onClick={this.onButtonClick}>Say Hello from Server</button>
+        <span>Say Hello&nbsp;</span><input value={this.state.inputValue} onChange={this.onChange} />
+        <button onClick={this.onButtonClick}>from Service</button>
       </section>
     );
   }

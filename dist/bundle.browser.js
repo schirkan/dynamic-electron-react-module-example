@@ -16,8 +16,12 @@ var HelloWorld = function (_super) {
     __extends(HelloWorld, _super);
     function HelloWorld(props) {
         _super.call(this, props);
-        this.state = { text: props.options.initialText };
+        this.state = {
+            inputValue: 'Service',
+            text: props.options.initialText
+        };
         this.onButtonClick = this.onButtonClick.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
     HelloWorld.prototype.componentDidMount = function () {
         var _this = this;
@@ -29,10 +33,13 @@ var HelloWorld = function (_super) {
     };
     HelloWorld.prototype.onButtonClick = function () {
         try {
-            this.setState({ text: this.state.helloService.sayHello('Martin') });
+            this.setState({ text: this.state.helloService.sayHello(this.state.inputValue) });
         } catch (error) {
             this.setState({ text: error });
         }
+    };
+    HelloWorld.prototype.onChange = function (e) {
+        this.setState({ inputValue: e.currentTarget.value });
     };
     HelloWorld.prototype.render = function () {
         if (this.state.error) {
@@ -56,13 +63,23 @@ var HelloWorld = function (_super) {
             React.createElement(
                 'div',
                 null,
-                React.createElement(FontAwesome.FontAwesomeIcon, { icon: SvgIcons.faThumbsUp, size: '2x' }),
-                this.state.text
+                React.createElement(FontAwesome.FontAwesomeIcon, { icon: SvgIcons.faThumbsUp }),
+                React.createElement(
+                    'span',
+                    null,
+                    this.state.text
+                )
             ),
+            React.createElement(
+                'span',
+                null,
+                'Say Hello\xA0'
+            ),
+            React.createElement('input', { value: this.state.inputValue, onChange: this.onChange }),
             React.createElement(
                 'button',
                 { onClick: this.onButtonClick },
-                'Say Hello from Server'
+                'from Service'
             )
         );
     };
