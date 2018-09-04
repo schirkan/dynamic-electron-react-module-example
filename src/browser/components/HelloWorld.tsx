@@ -5,8 +5,8 @@ import { IHelloService } from '../../common/interfaces/IHelloService';
 // import style from './HelloWorld.scss';
 
 interface IHelloWorldProps {
-  backendService: any;
-  options: { initialText: string }
+  options: { initialText: string };
+  getService(serviceName: string, moduleName?: string): Promise<any>;
 }
 interface IHelloWorldState {
   text: string;
@@ -40,7 +40,7 @@ export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldSta
   }
 
   public componentDidMount() {
-    this.props.backendService.getService('HelloService')
+    this.props.getService('HelloService')
       .then((helloService: IHelloService) => this.setState({ helloService }))
       .catch((error: any) => this.setState({ error }));
   }

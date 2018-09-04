@@ -25,7 +25,7 @@ var HelloWorld = function (_super) {
     }
     HelloWorld.prototype.componentDidMount = function () {
         var _this = this;
-        this.props.backendService.getService('HelloService').then(function (helloService) {
+        this.props.getService('HelloService').then(function (helloService) {
             return _this.setState({ helloService: helloService });
         }).catch(function (error) {
             return _this.setState({ error: error });
