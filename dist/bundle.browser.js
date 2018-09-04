@@ -35,28 +35,13 @@ var HelloWorld = function (_super) {
         try {
             this.setState({ text: this.state.helloService.sayHello(this.state.inputValue) });
         } catch (error) {
-            this.setState({ text: error });
+            this.setState({ error: error });
         }
     };
     HelloWorld.prototype.onChange = function (e) {
         this.setState({ inputValue: e.currentTarget.value });
     };
     HelloWorld.prototype.render = function () {
-        if (this.state.error) {
-            return React.createElement(
-                'div',
-                { className: 'error' },
-                'Error: ',
-                this.state.error
-            );
-        }
-        if (!this.state.helloService) {
-            return React.createElement(
-                'div',
-                { className: 'loading' },
-                'Loading HelloService'
-            );
-        }
         return React.createElement(
             'section',
             { className: 'HelloWorld' },
@@ -78,8 +63,14 @@ var HelloWorld = function (_super) {
             React.createElement('input', { value: this.state.inputValue, onChange: this.onChange }),
             React.createElement(
                 'button',
-                { onClick: this.onButtonClick },
+                { disabled: !this.state.helloService, onClick: this.onButtonClick },
                 'from Service'
+            ),
+            this.state.error && React.createElement(
+                'div',
+                { className: 'error' },
+                'Error: ',
+                this.state.error
             )
         );
     };
