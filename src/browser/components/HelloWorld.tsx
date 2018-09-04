@@ -49,7 +49,7 @@ export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldSta
     try {
       this.setState({ text: this.state.helloService.sayHello(this.state.inputValue) });
     } catch (error) {
-      this.setState({ text: error });
+      this.setState({ error });
     }
   }
 
@@ -58,14 +58,6 @@ export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldSta
   } 
 
   public render() {
-    if (this.state.error) {
-      return <div className="error">Error: {this.state.error}</div>;
-    }
-
-    if (!this.state.helloService) {
-      return <div className="loading">Loading HelloService</div>;
-    }
-
     return (
       <section className="HelloWorld">
         <div>
@@ -73,7 +65,8 @@ export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldSta
           <span>{this.state.text}</span>
         </div>
         <span>Say Hello&nbsp;</span><input value={this.state.inputValue} onChange={this.onChange} />
-        <button onClick={this.onButtonClick}>from Service</button>
+        <button disabled={!this.state.helloService} onClick={this.onButtonClick}>from Service</button>
+        {this.state.error && <div className="error">Error: {this.state.error}</div>}
       </section>
     );
   }
