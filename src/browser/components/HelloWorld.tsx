@@ -16,18 +16,6 @@ interface IHelloWorldState {
 }
 
 export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldState> {
-  public static definition: {
-    name: 'HelloWorld';
-    displayName: 'Hello World Component';
-    description: 'Hello World Component with HelloService';
-    options: [{
-      name: 'text';
-      displayName: 'Text';
-      description: 'Text to display';
-      valueType: 'string';
-    }];
-  };
-
   constructor(props: IHelloWorldProps) {
     super(props);
     this.state = {

@@ -1,5 +1,32 @@
 'use strict';
 
+function __$$styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var SvgIcons = require('@fortawesome/free-solid-svg-icons');
@@ -77,5 +104,19 @@ var HelloWorld = function (_super) {
     return HelloWorld;
 }(React.Component);
 
+var components = [{
+        component: HelloWorld,
+        description: 'Hello World Component with HelloService',
+        displayName: 'Hello World Component',
+        name: 'HelloWorld',
+        options: [{
+                description: 'Text to display',
+                displayName: 'Text',
+                name: 'text',
+                valueType: 'string'
+        }]
+}];
+
+exports.components = components;
 exports.HelloWorld = HelloWorld;
 //# sourceMappingURL=bundle.browser.js.map
