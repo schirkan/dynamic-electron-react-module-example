@@ -822,5 +822,12 @@ var HelloService = function () {
     return HelloService;
 }();
 
-exports.HelloService = HelloService;
+var services = [{
+        description: 'API Controller for Modules',
+        displayName: 'Modules API',
+        name: 'ModuleController',
+        service: HelloService
+}];
+
+exports.services = services;
 //# sourceMappingURL=bundle.server.js.map
