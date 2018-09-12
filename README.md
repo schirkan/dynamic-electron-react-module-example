@@ -1,3 +1,3 @@
-# dynamic-electron-react-module-example
+# reactron-hello-world
 
-Sample Module for [dynamic-electron-react-module-loader](https://github.com/schirkan/dynamic-electron-react-module-loader)
+Sample Module for [reactron](https://github.com/schirkan/reactron)
