@@ -23,11 +23,9 @@ var runtime = createCommonjsModule(function (module) {
   var iteratorSymbol = $Symbol.iterator || "@@iterator";
   var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
   var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
-
-  var inModule = 'object' === "object";
   var runtime = global.regeneratorRuntime;
   if (runtime) {
-    if (inModule) {
+    {
       // If regeneratorRuntime is defined globally and we're in a module,
       // make the exports object identical to regeneratorRuntime.
       module.exports = runtime;
@@ -39,7 +37,7 @@ var runtime = createCommonjsModule(function (module) {
 
   // Define the runtime globally (as expected by generated code) as either
   // module.exports (if we're in a module) or a new, empty object.
-  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
+  runtime = global.regeneratorRuntime = module.exports;
 
   function wrap(innerFn, outerFn, self, tryLocsList) {
     // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
@@ -823,9 +821,9 @@ var HelloService = function () {
 }();
 
 var services = [{
-        description: 'API Controller for Modules',
-        displayName: 'Modules API',
-        name: 'ModuleController',
+        description: 'Service for HelloWorld Component',
+        displayName: 'HelloService',
+        name: 'HelloService',
         service: HelloService
 }];
 
