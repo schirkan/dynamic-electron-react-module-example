@@ -1,103 +1,81 @@
-'use strict';
+System.register(['@fortawesome/free-solid-svg-icons', '@fortawesome/react-fontawesome', 'react'], function (exports, module) {
+    'use strict';
+    var faThumbsUp, FontAwesomeIcon, createElement, Component;
+    return {
+        setters: [function (module) {
+            faThumbsUp = module.faThumbsUp;
+        }, function (module) {
+            FontAwesomeIcon = module.FontAwesomeIcon;
+        }, function (module) {
+            createElement = module.createElement;
+            Component = module.Component;
+        }],
+        execute: function () {
 
+            function __extends(d, b) {
+                for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+                function __() { this.constructor = d; }
+                d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+            }
 
+            var HelloWorld = exports('HelloWorld', /** @class */ (function (_super) {
+                __extends(HelloWorld, _super);
+                function HelloWorld(props) {
+                    var _this = _super.call(this, props) || this;
+                    _this.state = {
+                        inputValue: 'Service',
+                        text: props.options.initialText
+                    };
+                    _this.onButtonClick = _this.onButtonClick.bind(_this);
+                    _this.onChange = _this.onChange.bind(_this);
+                    return _this;
+                }
+                HelloWorld.prototype.componentDidMount = function () {
+                    var _this = this;
+                    this.props.getService('HelloService')
+                        .then(function (helloService) { return _this.setState({ helloService: helloService }); })
+                        .catch(function (error) { return _this.setState({ error: error }); });
+                };
+                HelloWorld.prototype.onButtonClick = function () {
+                    try {
+                        this.setState({ text: this.state.helloService.sayHello(this.state.inputValue) });
+                    }
+                    catch (error) {
+                        this.setState({ error: error });
+                    }
+                };
+                HelloWorld.prototype.onChange = function (e) {
+                    this.setState({ inputValue: e.currentTarget.value });
+                };
+                HelloWorld.prototype.render = function () {
+                    return (createElement("section", { className: "HelloWorld" },
+                        createElement("div", null,
+                            createElement(FontAwesomeIcon, { icon: faThumbsUp }),
+                            createElement("span", null, this.state.text)),
+                        createElement("span", null, "Say Hello\u00A0"),
+                        createElement("input", { value: this.state.inputValue, onChange: this.onChange }),
+                        createElement("button", { disabled: !this.state.helloService, onClick: this.onButtonClick }, "from Service"),
+                        this.state.error && createElement("div", { className: "error" },
+                            "Error: ",
+                            this.state.error)));
+                };
+                return HelloWorld;
+            }(Component)));
 
-function __$$styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
+            var components = exports('components', [{
+                    component: HelloWorld,
+                    description: 'Hello World Component with HelloService',
+                    displayName: 'Hello World Component',
+                    name: 'HelloWorld',
+                    options: [{
+                            description: 'Text to display',
+                            displayName: 'Text',
+                            name: 'text',
+                            valueType: 'string'
+                        }]
+                }]);
 
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-var SvgIcons = require('@fortawesome/free-solid-svg-icons');
-var FontAwesome = require('@fortawesome/react-fontawesome');
-var React = require('react');
-
-function __extends(d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-var HelloWorld = /** @class */ (function (_super) {
-    __extends(HelloWorld, _super);
-    function HelloWorld(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            inputValue: 'Service',
-            text: props.options.initialText
-        };
-        _this.onButtonClick = _this.onButtonClick.bind(_this);
-        _this.onChange = _this.onChange.bind(_this);
-        return _this;
-    }
-    HelloWorld.prototype.componentDidMount = function () {
-        var _this = this;
-        this.props.getService('HelloService')
-            .then(function (helloService) { return _this.setState({ helloService: helloService }); })
-            .catch(function (error) { return _this.setState({ error: error }); });
-    };
-    HelloWorld.prototype.onButtonClick = function () {
-        try {
-            this.setState({ text: this.state.helloService.sayHello(this.state.inputValue) });
         }
-        catch (error) {
-            this.setState({ error: error });
-        }
     };
-    HelloWorld.prototype.onChange = function (e) {
-        this.setState({ inputValue: e.currentTarget.value });
-    };
-    HelloWorld.prototype.render = function () {
-        return (React.createElement("section", { className: "HelloWorld" },
-            React.createElement("div", null,
-                React.createElement(FontAwesome.FontAwesomeIcon, { icon: SvgIcons.faThumbsUp }),
-                React.createElement("span", null, this.state.text)),
-            React.createElement("span", null, "Say Hello\u00A0"),
-            React.createElement("input", { value: this.state.inputValue, onChange: this.onChange }),
-            React.createElement("button", { disabled: !this.state.helloService, onClick: this.onButtonClick }, "from Service"),
-            this.state.error && React.createElement("div", { className: "error" },
-                "Error: ",
-                this.state.error)));
-    };
-    return HelloWorld;
-}(React.Component));
-
-var components = [{
-        component: HelloWorld,
-        description: 'Hello World Component with HelloService',
-        displayName: 'Hello World Component',
-        name: 'HelloWorld',
-        options: [{
-                description: 'Text to display',
-                displayName: 'Text',
-                name: 'text',
-                valueType: 'string'
-            }]
-    }];
-
-exports.components = components;
-exports.HelloWorld = HelloWorld;
+});
 //# sourceMappingURL=bundle.browser.js.map

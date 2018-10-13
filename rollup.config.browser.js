@@ -10,7 +10,7 @@ export default {
     input: './src/browser/index.ts',
     output: [{
         file: './dist/bundle.browser.js',
-        format: 'cjs',
+        format: 'system',
         sourcemap: true
     }],
     plugins: [
