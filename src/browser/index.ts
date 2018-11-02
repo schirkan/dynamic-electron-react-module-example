@@ -8,7 +8,7 @@ export const components: IComponentDefinition[] = [{
     description: 'Hello World Component with HelloService',
     displayName: 'Hello World Component',
     name: 'HelloWorld',
-    options: [{
+    fields: [{
         description: 'Text to display',
         displayName: 'Text',
         name: 'text',
