@@ -12,12 +12,13 @@ interface IHelloWorldOptions {
 
 interface IHelloWorldState {
   text: string;
-  helloService?: any;
   error?: any;
   inputValue: string;
 }
 
 export class HelloWorld extends React.Component<IReactronComponentProps<IHelloWorldOptions>, IHelloWorldState> {
+  private helloService = this.props.context.getService<IHelloService>('HelloService');
+  
   constructor(props: IReactronComponentProps<IHelloWorldOptions>) {
     super(props);
     this.state = {
@@ -29,14 +30,12 @@ export class HelloWorld extends React.Component<IReactronComponentProps<IHelloWo
     this.onChange = this.onChange.bind(this);
   }
 
-  public componentDidMount() {
-    const helloService = this.props.getService<IHelloService>('HelloService');
-    this.setState({ helloService });
-  }
-
   public onButtonClick() {
+    if(!this.helloService){
+      return;
+    }
     try {
-      this.setState({ text: this.state.helloService.sayHello(this.state.inputValue) });
+      this.setState({ text: this.helloService.sayHello(this.state.inputValue) });
     } catch (error) {
       this.setState({ error });
     }
@@ -54,7 +53,7 @@ export class HelloWorld extends React.Component<IReactronComponentProps<IHelloWo
           <span>{this.state.text}</span>
         </div>
         <span>Say Hello&nbsp;</span><input value={this.state.inputValue} onChange={this.onChange} />
-        <button disabled={!this.state.helloService} onClick={this.onButtonClick}>from Service</button>
+        <button disabled={!this.helloService} onClick={this.onButtonClick}>from Service</button>
         {this.state.error && <div className="error">Error: {this.state.error}</div>}
       </section>
     );
