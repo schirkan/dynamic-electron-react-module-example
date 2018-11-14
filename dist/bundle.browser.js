@@ -41,10 +41,11 @@ System.register(['@fortawesome/free-solid-svg-icons', '@fortawesome/react-fontaw
                 d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
             }
 
-            var HelloWorld = exports('HelloWorld', /** @class */ (function (_super) {
+            var HelloWorld = /** @class */ (function (_super) {
                 __extends(HelloWorld, _super);
                 function HelloWorld(props) {
                     var _this = _super.call(this, props) || this;
+                    _this.helloService = _this.props.context.getService('HelloService');
                     _this.state = {
                         inputValue: 'Service',
                         text: props.options.initialText
@@ -53,15 +54,12 @@ System.register(['@fortawesome/free-solid-svg-icons', '@fortawesome/react-fontaw
                     _this.onChange = _this.onChange.bind(_this);
                     return _this;
                 }
-                HelloWorld.prototype.componentDidMount = function () {
-                    var _this = this;
-                    this.props.getService('HelloService')
-                        .then(function (helloService) { return _this.setState({ helloService: helloService }); })
-                        .catch(function (error) { return _this.setState({ error: error }); });
-                };
                 HelloWorld.prototype.onButtonClick = function () {
+                    if (!this.helloService) {
+                        return;
+                    }
                     try {
-                        this.setState({ text: this.state.helloService.sayHello(this.state.inputValue) });
+                        this.setState({ text: this.helloService.sayHello(this.state.inputValue) });
                     }
                     catch (error) {
                         this.setState({ error: error });
@@ -77,13 +75,13 @@ System.register(['@fortawesome/free-solid-svg-icons', '@fortawesome/react-fontaw
                             createElement("span", null, this.state.text)),
                         createElement("span", null, "Say Hello\u00A0"),
                         createElement("input", { value: this.state.inputValue, onChange: this.onChange }),
-                        createElement("button", { disabled: !this.state.helloService, onClick: this.onButtonClick }, "from Service"),
+                        createElement("button", { disabled: !this.helloService, onClick: this.onButtonClick }, "from Service"),
                         this.state.error && createElement("div", { className: "error" },
                             "Error: ",
                             this.state.error)));
                 };
                 return HelloWorld;
-            }(Component)));
+            }(Component));
 
             var components = exports('components', [{
                     component: HelloWorld,

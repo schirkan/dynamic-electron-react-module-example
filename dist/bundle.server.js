@@ -57,7 +57,7 @@ function __generator(thisArg, body) {
 var HelloService = /** @class */ (function () {
     function HelloService() {
     }
-    HelloService.prototype.start = function (serviceLoader) {
+    HelloService.prototype.start = function (context) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 console.log('HelloService.start()');
