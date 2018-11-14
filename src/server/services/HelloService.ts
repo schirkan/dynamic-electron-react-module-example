@@ -1,7 +1,8 @@
-import { IHelloService } from "../../common/interfaces/IHelloService";
+import { IReactronServiceContext } from "@schirkan/reactron-interfaces";
+import { IHelloService } from "src/common/interfaces/IHelloService";
 
 export class HelloService implements IHelloService {
-    public async start(serviceLoader: any): Promise<void> {
+    public async start(context: IReactronServiceContext): Promise<void> {
         console.log('HelloService.start()');
     }
 

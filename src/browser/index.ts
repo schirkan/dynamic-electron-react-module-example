@@ -1,9 +1,7 @@
-import { IComponentDefinition } from '../common/interfaces/IComponentDefinition';
+import { IReactronComponentDefinition } from '@schirkan/reactron-interfaces';
 import { HelloWorld } from './components/HelloWorld';
 
-export * from './components/HelloWorld';
-
-export const components: IComponentDefinition[] = [{
+export const components: IReactronComponentDefinition[] = [{
     component: HelloWorld,
     description: 'Hello World Component with HelloService',
     displayName: 'Hello World Component',

@@ -1,13 +1,15 @@
 import * as SvgIcons from '@fortawesome/free-solid-svg-icons';
 import * as FontAwesome from '@fortawesome/react-fontawesome';
+import { IReactronComponentProps } from "@schirkan/reactron-interfaces";
 import * as React from 'react';
 import { IHelloService } from '../../common/interfaces/IHelloService';
+
 // import style from './HelloWorld.scss';
 
-interface IHelloWorldProps {
-  options: { initialText: string };
-  getService(serviceName: string, moduleName?: string): Promise<any>;
+interface IHelloWorldOptions {
+  initialText: string;
 }
+
 interface IHelloWorldState {
   text: string;
   helloService?: any;
@@ -15,8 +17,8 @@ interface IHelloWorldState {
   inputValue: string;
 }
 
-export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldState> {
-  constructor(props: IHelloWorldProps) {
+export class HelloWorld extends React.Component<IReactronComponentProps<IHelloWorldOptions>, IHelloWorldState> {
+  constructor(props: IReactronComponentProps<IHelloWorldOptions>) {
     super(props);
     this.state = {
       inputValue: 'Service',
@@ -28,9 +30,8 @@ export class HelloWorld extends React.Component<IHelloWorldProps, IHelloWorldSta
   }
 
   public componentDidMount() {
-    this.props.getService('HelloService')
-      .then((helloService: IHelloService) => this.setState({ helloService }))
-      .catch((error: any) => this.setState({ error }));
+    const helloService = this.props.getService<IHelloService>('HelloService');
+    this.setState({ helloService });
   }
 
   public onButtonClick() {

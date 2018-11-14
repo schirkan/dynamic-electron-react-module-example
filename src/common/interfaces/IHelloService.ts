@@ -1,5 +1,5 @@
-export interface IHelloService {
+import { IReactronService } from '@schirkan/reactron-interfaces';
+
+export interface IHelloService extends IReactronService {
     sayHello(name: string): string;
-    start(serviceLoader: any): Promise<void>;
-    stop(): Promise<void>;
 }
