@@ -1,6 +1,6 @@
 import * as SvgIcons from '@fortawesome/free-solid-svg-icons';
 import * as FontAwesome from '@fortawesome/react-fontawesome';
-import { IReactronComponentProps } from "@schirkan/reactron-interfaces";
+import { IReactronComponentContext } from '@schirkan/reactron-interfaces';
 import * as React from 'react';
 import { IHelloService } from '../../common/interfaces/IHelloService';
 
@@ -16,14 +16,15 @@ interface IHelloWorldState {
   inputValue: string;
 }
 
-export class HelloWorld extends React.Component<IReactronComponentProps<IHelloWorldOptions>, IHelloWorldState> {
-  private helloService = this.props.context.getService<IHelloService>('HelloService');
+export class HelloWorld extends React.Component<IHelloWorldOptions, IHelloWorldState> {
+  public context: IReactronComponentContext;
+  private helloService = this.context.getService<IHelloService>('HelloService');
   
-  constructor(props: IReactronComponentProps<IHelloWorldOptions>) {
+  constructor(props: IHelloWorldOptions) {
     super(props);
     this.state = {
       inputValue: 'Service',
-      text: props.options.initialText
+      text: props.initialText
     };
 
     this.onButtonClick = this.onButtonClick.bind(this);
