@@ -41,6 +41,37 @@ System.register(['@fortawesome/free-solid-svg-icons', '@fortawesome/react-fontaw
                 d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
             }
 
+            function styleInject(css, ref) {
+              if ( ref === void 0 ) ref = {};
+              var insertAt = ref.insertAt;
+
+              if (!css || typeof document === 'undefined') { return; }
+
+              var head = document.head || document.getElementsByTagName('head')[0];
+              var style = document.createElement('style');
+              style.type = 'text/css';
+
+              if (insertAt === 'top') {
+                if (head.firstChild) {
+                  head.insertBefore(style, head.firstChild);
+                } else {
+                  head.appendChild(style);
+                }
+              } else {
+                head.appendChild(style);
+              }
+
+              if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+              } else {
+                style.appendChild(document.createTextNode(css));
+              }
+            }
+
+            var css = ".HelloWorld_HelloWorld__3Xza0 {\n  background-color: green; }\n";
+            var style = {"HelloWorld":"HelloWorld_HelloWorld__3Xza0"};
+            styleInject(css);
+
             var HelloWorld = /** @class */ (function (_super) {
                 __extends(HelloWorld, _super);
                 function HelloWorld(props) {
@@ -53,15 +84,13 @@ System.register(['@fortawesome/free-solid-svg-icons', '@fortawesome/react-fontaw
                     _this.onChange = _this.onChange.bind(_this);
                     return _this;
                 }
-                HelloWorld.prototype.componentDidMount = function () {
-                    this.helloService = this.context.getService('HelloService');
-                };
                 HelloWorld.prototype.onButtonClick = function () {
-                    if (!this.helloService) {
+                    var helloService = this.context.getService('HelloService');
+                    if (!helloService) {
                         return;
                     }
                     try {
-                        this.setState({ text: this.helloService.sayHello(this.state.inputValue) });
+                        this.setState({ text: helloService.sayHello(this.state.inputValue) });
                     }
                     catch (error) {
                         this.setState({ error: error });
@@ -71,13 +100,15 @@ System.register(['@fortawesome/free-solid-svg-icons', '@fortawesome/react-fontaw
                     this.setState({ inputValue: e.currentTarget.value });
                 };
                 HelloWorld.prototype.render = function () {
-                    return (createElement("section", { className: "HelloWorld" },
+                    return (createElement("section", { className: style["HelloWorld"] },
                         createElement("div", null,
                             createElement(FontAwesomeIcon, { icon: faThumbsUp }),
-                            createElement("span", null, this.state.text)),
+                            createElement("span", null,
+                                " ",
+                                this.state.text)),
                         createElement("span", null, "Say Hello\u00A0"),
                         createElement("input", { value: this.state.inputValue, onChange: this.onChange }),
-                        createElement("button", { disabled: !this.helloService, onClick: this.onButtonClick }, "from Service"),
+                        createElement("button", { onClick: this.onButtonClick }, "from Service"),
                         this.state.error && createElement("div", { className: "error" },
                             "Error: ",
                             this.state.error)));
