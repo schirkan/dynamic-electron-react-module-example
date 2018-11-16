@@ -18,8 +18,8 @@ interface IHelloWorldState {
 
 export class HelloWorld extends React.Component<IHelloWorldOptions, IHelloWorldState> {
   public context: IReactronComponentContext;
-  private helloService = this.context.getService<IHelloService>('HelloService');
-  
+  private helloService?: IHelloService;
+
   constructor(props: IHelloWorldOptions) {
     super(props);
     this.state = {
@@ -31,8 +31,12 @@ export class HelloWorld extends React.Component<IHelloWorldOptions, IHelloWorldS
     this.onChange = this.onChange.bind(this);
   }
 
+  public componentDidMount() {
+    this.helloService = this.context.getService<IHelloService>('HelloService');
+  }
+
   public onButtonClick() {
-    if(!this.helloService){
+    if (!this.helloService) {
       return;
     }
     try {
@@ -42,9 +46,9 @@ export class HelloWorld extends React.Component<IHelloWorldOptions, IHelloWorldS
     }
   }
 
-  public onChange(e: React.FormEvent<HTMLInputElement>){
+  public onChange(e: React.FormEvent<HTMLInputElement>) {
     this.setState({ inputValue: e.currentTarget.value });
-  } 
+  }
 
   public render() {
     return (
