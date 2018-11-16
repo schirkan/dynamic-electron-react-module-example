@@ -45,7 +45,6 @@ System.register(['@fortawesome/free-solid-svg-icons', '@fortawesome/react-fontaw
                 __extends(HelloWorld, _super);
                 function HelloWorld(props) {
                     var _this = _super.call(this, props) || this;
-                    _this.helloService = _this.context.getService('HelloService');
                     _this.state = {
                         inputValue: 'Service',
                         text: props.initialText
@@ -54,6 +53,9 @@ System.register(['@fortawesome/free-solid-svg-icons', '@fortawesome/react-fontaw
                     _this.onChange = _this.onChange.bind(_this);
                     return _this;
                 }
+                HelloWorld.prototype.componentDidMount = function () {
+                    this.helloService = this.context.getService('HelloService');
+                };
                 HelloWorld.prototype.onButtonClick = function () {
                     if (!this.helloService) {
                         return;
