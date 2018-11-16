@@ -45,10 +45,10 @@ System.register(['@fortawesome/free-solid-svg-icons', '@fortawesome/react-fontaw
                 __extends(HelloWorld, _super);
                 function HelloWorld(props) {
                     var _this = _super.call(this, props) || this;
-                    _this.helloService = _this.props.context.getService('HelloService');
+                    _this.helloService = _this.context.getService('HelloService');
                     _this.state = {
                         inputValue: 'Service',
-                        text: props.options.initialText
+                        text: props.initialText
                     };
                     _this.onButtonClick = _this.onButtonClick.bind(_this);
                     _this.onChange = _this.onChange.bind(_this);
