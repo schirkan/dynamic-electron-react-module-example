@@ -5,6 +5,7 @@ import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript';
 import ts from 'typescript';
+import autoprefixer from 'autoprefixer';
 
 export default {
     input: './src/browser/index.ts',
@@ -18,6 +19,9 @@ export default {
             typescript: ts
         }),
         postcss({
+            plugins: [
+                autoprefixer(),
+            ],
             modules: true
         }),
         babel({
