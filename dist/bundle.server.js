@@ -55,12 +55,16 @@ function __generator(thisArg, body) {
 }
 
 var HelloService = /** @class */ (function () {
-    function HelloService() {
+    function HelloService(context) {
+        this.context = context;
     }
     HelloService.prototype.start = function (context) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                console.log('HelloService.start()');
+                this.context.log.debug('test debug');
+                this.context.log.info('test info');
+                this.context.log.warning('test warning');
+                this.context.log.error('test error');
                 return [2 /*return*/];
             });
         });
@@ -68,12 +72,12 @@ var HelloService = /** @class */ (function () {
     HelloService.prototype.stop = function () {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                console.log('HelloService.stop()');
                 return [2 /*return*/];
             });
         });
     };
     HelloService.prototype.sayHello = function (name) {
+        this.context.log.debug('sayHello', name);
         return 'Hello ' + name;
     };
     return HelloService;
