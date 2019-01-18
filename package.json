@@ -1,6 +1,6 @@
 {
     "name": "reactron-hello-world",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "author": {
         "name": "Martin Pietschmann",
         "email": "schirkan@gmail.com"
@@ -33,7 +33,7 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.12",
         "@fortawesome/free-solid-svg-icons": "^5.6.3",
         "@fortawesome/react-fontawesome": "^0.1.4",
-        "@schirkan/reactron-interfaces": "^0.10.0-alpha.11",
+        "@schirkan/reactron-interfaces": "^0.10.0-alpha.12",
         "autoprefixer": "^9.4.5",
         "classnames": "^2.2.6",
         "css-loader": "^2.1.0",
@@ -42,7 +42,7 @@
         "react": "^16.7.0",
         "react-dom": "^16.7.0",
         "rollup": "^1.1.0",
-        "rollup-plugin-babel": "^4.3.0",
+        "rollup-plugin-babel": "^4.3.1",
         "rollup-plugin-commonjs": "^9.2.0",
         "rollup-plugin-node-resolve": "^4.0.0",
         "rollup-plugin-postcss": "^1.6.3",
