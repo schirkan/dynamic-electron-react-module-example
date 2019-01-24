@@ -77,8 +77,12 @@ var HelloService = /** @class */ (function () {
         });
     };
     HelloService.prototype.sayHello = function (name) {
-        this.context.log.debug('sayHello', name);
-        return 'Hello ' + name;
+        return __awaiter(this, void 0, Promise, function () {
+            return __generator(this, function (_a) {
+                this.context.log.debug('sayHello', name);
+                return [2 /*return*/, 'Hello ' + name];
+            });
+        });
     };
     return HelloService;
 }());

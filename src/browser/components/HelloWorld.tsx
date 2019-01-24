@@ -31,13 +31,14 @@ export class HelloWorld extends React.Component<IHelloWorldOptions, IHelloWorldS
     this.onChange = this.onChange.bind(this);
   }
 
-  public onButtonClick() {
-    const helloService = this.context.getService<IHelloService>('HelloService');
+  public async onButtonClick() {
+    const helloService = await this.context.getService<IHelloService>('HelloService');
     if (!helloService) {
       return;
     }
     try {
-      this.setState({ text: helloService.sayHello(this.state.inputValue) });
+      const text = await helloService.sayHello(this.state.inputValue);
+      this.setState({ text });
     } catch (error) {
       this.setState({ error });
     }

@@ -15,7 +15,7 @@ export class HelloService implements IHelloService {
         // nothing here
     }
 
-    public sayHello(name: string): string {
+    public async sayHello(name: string): Promise<string> {
         this.context.log.debug('sayHello', name);
         return 'Hello ' + name;
     }
